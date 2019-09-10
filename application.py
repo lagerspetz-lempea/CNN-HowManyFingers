@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 ''' Written by jared.vasquez@yale.edu '''
 
+import tensorflow as tf
+#sess =  tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
+#from keras import backend as K
+#K.set_session(sess)
+
+config = tf.ConfigProto()
+config.gpu_options.allow_growth=True
+sess = tf.Session(config=config)
+from keras import backend as K
+K.set_session(sess)
+
+
 from keras.models import load_model
 import matplotlib.pyplot as plt
 import numpy as np
@@ -44,7 +56,7 @@ def main():
 
     model = load_model('model_6cat.h5')
 
-    x0, y0, width = 200, 220, 300
+    x0, y0, width = 150, 100, 300
 
     cam = cv2.VideoCapture(0)
     cv2.namedWindow('Original', cv2.WINDOW_NORMAL)
