@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 ''' Written by jared.vasquez@yale.edu '''
 
-from kafka import KafkaProducer
+#from kafka import KafkaProducer
 import tensorflow as tf
 #sess =  tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
 #from keras import backend as K
@@ -74,6 +74,11 @@ def sendImage(inframe, outframe, url, labels):
 
     saveToDb(redis_msg, url)
 
+    #saveToKafka(url, timestamp, labels)
+
+
+def saveToKafka(url, timestamp, labels):
+
     # Build message to send to kafka topic.
     kafka_msg = {
         'stream_id': url,
@@ -81,11 +86,11 @@ def sendImage(inframe, outframe, url, labels):
         'objects': labels
     }
 
-    try:
-        kafka_producer.send(kafka_topic, kafka_msg)
-        kafka_producer.flush()
-    except Exception as e:
-        log.error(e)
+    #try:
+    #    kafka_producer.send(kafka_topic, kafka_msg)
+    #    kafka_producer.flush()
+    #except Exception as e:
+    #    log.error(e)
 
 
 def main():
